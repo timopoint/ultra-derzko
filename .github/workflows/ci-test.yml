@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
 
       - name: Docker image
         run: docker build -t app_load:latest
@@ -51,4 +51,26 @@ jobs:
           port: ${{ secrets.PORT }}
           source: "mm_app.tar"
           target: "~/NikitinT/deploy"
+      - name:  Copy to server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: | 
+            cd ~/NikitinT
+            mkdir -p deploy
+            cd deploy
+
+            echo "Loading Docker image..."
+            docker load -i mm_app.tar
+
+            echo "stopping old container..."
+            docker rm -f mm_app || true
+
+            echo "starting new container"
+            docker run -d --name mm_app -p mm_app:latest
+
+            echo "Deployment finished!"
 
