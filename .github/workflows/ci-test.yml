@@ -24,3 +24,31 @@ jobs:
 
       - name: run
         run: pytest -q
+  
+
+  deploy:
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@4
+
+      - name: Docker image
+        run: docker build -t app_load:latest
+
+      - name: save docker image
+        run: docker save app_load:latest -o mm_app.tar
+
+      - name: Fix permission
+        run: sudo chmod 644 mm_app.tar
+      
+      - name:  Copy to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          source: "mm_app.tar"
+          target: "~/NikitinT/deploy"
+
