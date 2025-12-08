@@ -1,4 +1,4 @@
-from modules.py import Greet, ADD, SUB, MUL, DIV
+from modules import Greet, ADD, SUB, MUL, DIV
 
 def TEST_Greet():
     assert Greet("TIM") == "Hello, dear TIM!"
