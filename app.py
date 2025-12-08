@@ -6,3 +6,8 @@ def Sum(a: int, b: int):
 
 def mul(a: int, b: int):
     return a*b
+
+if __name__ == "__main__":
+    print(Greet("TIM"))
+    print(Sum(70,636))
+    print(mul(17,15))
