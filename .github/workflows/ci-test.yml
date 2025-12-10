@@ -51,7 +51,6 @@ jobs:
           port: ${{ secrets.PORT }}
           source: "mm_app.tar"
           target: "~/NikitinT/deploy"
-
       - name:  Copy to server
         uses: appleboy/ssh-action@v1
         with:
@@ -71,7 +70,7 @@ jobs:
             docker rm -f mm_app || true
 
             echo "starting new container"
-            docker run -d --name mm_app -p app_load:latest
+            docker run -d --name mm_app mm_app:latest
 
             echo "Deployment finished!"
 
