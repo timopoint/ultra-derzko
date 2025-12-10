@@ -60,7 +60,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: | 
-            mkdir NikitinT
             cd ~/NikitinT
             mkdir -p deploy
             cd deploy
