@@ -71,7 +71,7 @@ jobs:
             docker rm -f mm_app || true
 
             echo "starting new container"
-            docker run -d --name mm_app -p mm_app:latest
+            docker run -d --name mm_app -p app_load:latest
 
             echo "Deployment finished!"
 
