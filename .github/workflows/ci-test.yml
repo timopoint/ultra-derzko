@@ -51,6 +51,7 @@ jobs:
           port: ${{ secrets.PORT }}
           source: "mm_app.tar"
           target: "~/NikitinT/deploy"
+
       - name:  Copy to server
         uses: appleboy/ssh-action@v1
         with:
@@ -59,6 +60,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: | 
+            mkdir NikitinT
             cd ~/NikitinT
             mkdir -p deploy
             cd deploy
